@@ -7,6 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+var site_service_1 = require("./site.service");
 var AppComponent = (function () {
     function AppComponent() {
         this.name = 'Angular';
@@ -16,7 +17,8 @@ var AppComponent = (function () {
 AppComponent = __decorate([
     core_1.Component({
         selector: 'my-app',
-        template: "<h1>Hello {{name}}</h1>\n              <site-list></site-list>\n                <site-details></site-details>"
+        template: "<h1>Hello {{name}}</h1>\n              <site-list></site-list>\n                <site-details></site-details>",
+        providers: [site_service_1.SiteService]
     })
 ], AppComponent);
 exports.AppComponent = AppComponent;
