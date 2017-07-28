@@ -27,7 +27,7 @@ var SiteListComponent = (function () {
 SiteListComponent = __decorate([
     core_1.Component({
         selector: 'site-list',
-        template: "<h2></h2>\n                <h2>{{errorMessage}}</h2>\n                <ul *ngFor = \"let site of sites\">\n                <li>{{site.name}}</li>\n                   </ul>"
+        template: "<h2>list</h2>\n                <h2>{{errorMessage}}</h2>\n                <ul *ngFor = \"let site of sites\">\n                <li>{{site.name}}</li>\n                   </ul>"
     }),
     __metadata("design:paramtypes", [site_service_1.SiteService])
 ], SiteListComponent);

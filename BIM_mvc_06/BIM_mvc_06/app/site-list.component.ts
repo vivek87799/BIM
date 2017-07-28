@@ -3,7 +3,7 @@ import { SiteService } from './site.service'
 
 @Component({
     selector: 'site-list',
-    template: `<h2></h2>
+    template: `<h2>list</h2>
                 <h2>{{errorMessage}}</h2>
                 <ul *ngFor = "let site of sites">
                 <li>{{site.name}}</li>
