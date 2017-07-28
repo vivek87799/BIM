@@ -7,19 +7,16 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var site_service_1 = require("./site.service");
-var AppComponent = (function () {
-    function AppComponent() {
-        this.name = 'Angular';
+var testComponent = (function () {
+    function testComponent() {
     }
-    return AppComponent;
+    return testComponent;
 }());
-AppComponent = __decorate([
+testComponent = __decorate([
     core_1.Component({
-        selector: 'my-app',
-        template: "<h1>Hello {{name}}</h1>\n                <nav>\n                <a routerLink = \"/list\" routerLinkActive = \"active\">List</a>\n                <a routerLink = \"/details\" routerLinkActive = \"active\">Details</a>\n                </nav> \n                <router-outlet></router-outlet>\n              ",
-        providers: [site_service_1.SiteService]
+        selector: 'test',
+        template: '<h2>test</h2>' //`<h2>test</h2>`
     })
-], AppComponent);
-exports.AppComponent = AppComponent;
-//# sourceMappingURL=app.component.js.map
+], testComponent);
+exports.testComponent = testComponent;
+//# sourceMappingURL=test.component.js.map

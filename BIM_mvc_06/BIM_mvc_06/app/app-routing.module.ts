@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { SiteListComponent } from './site-list.component';
 import { SiteDetailsComponent } from './site-details.component';
 
+
 const routes: Routes = [
     { path: 'list', component: SiteListComponent },
     { path: 'details', component: SiteDetailsComponent }
@@ -17,4 +18,4 @@ const routes: Routes = [
 })
 
 export class AppRoutingModule{ }
-export const routingComponents = [SiteListComponent, SiteDetailsComponent];
+export const routingComponents = [SiteListComponent, SiteDetailsComponent]
