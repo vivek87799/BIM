@@ -10,26 +10,46 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
 var site_service_1 = require("./site.service");
 var SiteListComponent = (function () {
-    function SiteListComponent(_siteService) {
+    function SiteListComponent(_siteService, router) {
         this._siteService = _siteService;
+        this.router = router;
+        this.myModel = [];
         this.sites = [];
+        this.sites1 = [];
     }
     SiteListComponent.prototype.ngOnInit = function () {
         var _this = this;
         //this.sites = this._siteService.getSites();
         this._siteService.getSites()
             .subscribe(function (resSiteData) { return _this.sites = resSiteData; }, function (resSiteError) { return _this.errorMessage = resSiteError; });
+        //this._siteService.getSites1(this.myModel);
+        /* this._siteService.getSites1()
+             .subscribe(resSiteData => this.sites1 = resSiteData,
+             resSiteError => this.errorMessage = resSiteError);*/
+    };
+    SiteListComponent.prototype.onSelect = function (site) {
+        this.router.navigate(['/details', site.id]);
+    };
+    SiteListComponent.prototype.onSubmit = function (testt) {
+        console.log(testt);
+        var Obj = {
+            name: testt.name,
+            password: testt.password,
+        };
+        this.myModel = testt;
+        this._siteService.getSites1(Obj);
     };
     return SiteListComponent;
 }());
 SiteListComponent = __decorate([
     core_1.Component({
         selector: 'site-list',
-        template: "<h2>list</h2>\n                <h2>{{errorMessage}}</h2>\n                <ul *ngFor = \"let site of sites\">\n                <li>{{site.name}}</li>\n                   </ul>"
+        template: "<h2>list</h2>\n                <h2>{{errorMessage}}</h2>\n                <ul class= \"items\">\n                <li (click)= \"onSelect(site)\" *ngFor = \"let site of sites\">\n                <span class = \"badge\">\n               {{site.name}}</span>{{site.name}}</li>\n                   </ul>\n\n<input type=\"text\" [(ngModel)]=\"myModel.name\"/>\n<input type=\"text\" [(ngModel)]=\"myModel.password\"/>\n    {{myModel}}\n\n\n    {{myModel}}\n\n<input (click)= \"onSubmit(myModel)\" type=\"submit\" value = \"submit\" />\n\n\n{{sites1.id}}"
     }),
-    __metadata("design:paramtypes", [site_service_1.SiteService])
+    __metadata("design:paramtypes", [site_service_1.SiteService, router_1.Router])
 ], SiteListComponent);
 exports.SiteListComponent = SiteListComponent;
 //# sourceMappingURL=site-list.component.js.map

@@ -6,7 +6,8 @@ import { SiteDetailsComponent } from './site-details.component';
 
 const routes: Routes = [
     { path: 'list', component: SiteListComponent },
-    { path: 'details', component: SiteDetailsComponent }
+    { path: 'details', component: SiteDetailsComponent },
+    { path: 'details/:id', component: SiteDetailsComponent }
 ];
 
 @NgModule({

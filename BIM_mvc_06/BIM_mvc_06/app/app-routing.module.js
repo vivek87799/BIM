@@ -12,7 +12,8 @@ var site_list_component_1 = require("./site-list.component");
 var site_details_component_1 = require("./site-details.component");
 var routes = [
     { path: 'list', component: site_list_component_1.SiteListComponent },
-    { path: 'details', component: site_details_component_1.SiteDetailsComponent }
+    { path: 'details', component: site_details_component_1.SiteDetailsComponent },
+    { path: 'details/:id', component: site_details_component_1.SiteDetailsComponent }
 ];
 var AppRoutingModule = (function () {
     function AppRoutingModule() {

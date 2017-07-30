@@ -18,13 +18,53 @@ require("rxjs/add/observable/throw");
 var SiteService = (function () {
     function SiteService(_http) {
         this._http = _http;
+        this.site = [];
         //private _url: string = "http://admin:admin@localhost:5984/bim/_design/user_detail/_view/user_credential"
         this._url = "./app/test.json";
+        this._urlpost = "/Home/postMethod1";
     }
     SiteService.prototype.getSites = function () {
         return this._http.get(this._url) // returns an observable
             .map(function (response) { return response.json(); }) // .map converts observable to response of json format
             .catch(this._errorHandler); // to handle the http error
+    };
+    SiteService.prototype.getSites1 = function (dd) {
+        console.log(dd);
+        var id = 'id';
+        var name1 = 'name';
+        /*let urlSearchParams = new URLSearchParams();
+        urlSearchParams.append(id,'1');
+        urlSearchParams.append(name, 'Chitti');
+
+        let body = urlSearchParams.toString()
+        let bodyString = JSON.stringify({name});
+
+ */
+        var headers = new http_1.Headers({
+            'Content-Type': 'application/json; charset=utf-8'
+        });
+        var options = new http_1.RequestOptions({ headers: headers });
+        console.log("calling the post");
+        return this._http.post(this._urlpost, JSON.stringify(dd), options)
+            .subscribe();
+        /* console.log(this._http.post(this._urlpost, bodyString, headers) // returns an observable
+             .map((response: Response) => response.json()) // .map converts observable to response of json format
+             .catch(this._errorHandler)
+             .subscribe(resSiteData => this.site = resSiteData));
+         */
+        /*return this._http.post(this._urlpost, bodyString, headers) // returns an observable
+            .map((response: Response) => response.json()) // .map converts observable to response of json format
+            .catch(this._errorHandler)
+            .subscribe(resSiteData => this.site = resSiteData); // to handle the http error
+
+        */
+        // var headers = new Headers();
+        //headers.append('Content-Type', 'application/json');
+        //return this._http.post(this._urlpost,
+        //  { firstName: 'Joe' }, headers
+        //)
+        //.map((res: Response) => res.json())
+        //.subscribe();
     };
     SiteService.prototype._errorHandler = function (error) {
         console.error();
