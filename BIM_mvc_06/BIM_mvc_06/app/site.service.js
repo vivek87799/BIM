@@ -21,7 +21,7 @@ var SiteService = (function () {
         this.site = [];
         //private _url: string = "http://admin:admin@localhost:5984/bim/_design/user_detail/_view/user_credential"
         this._url = "./app/test.json";
-        this._urlpost = "/Home/postMethod1";
+        this._urlpost = "/Login/postMethod1";
     }
     SiteService.prototype.getSites = function () {
         return this._http.get(this._url) // returns an observable

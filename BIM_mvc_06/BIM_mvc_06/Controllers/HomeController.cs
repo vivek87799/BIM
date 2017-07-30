@@ -51,7 +51,7 @@ namespace BIM_mvc_06.Controllers
                 password = "240590"
             };
             */
-            await GetData(user.name);
+            var val = await GetData(user.name);
             return Json("status ok");
         }
 
@@ -64,10 +64,11 @@ namespace BIM_mvc_06.Controllers
 
                 //var name = new UserDetailModel();
 
-                var getEntityResponse = await client1.Entities.GetAsync<String>("vinoth");
+                var getEntityResponse = await client1.Entities.GetAsync<String>("84ca163c52885c2823ba547510001721");
+
+                var getEntityResponse1 = await client1.Entities.GetAsync<String>("vinoth");
                 var getDocumentResponse = await client1.Documents.GetAsync("955e47ca47676ed99de5aef5ab00391f");
 
-                return (getEntityResponse.ToString());
 
                 //var response1 = await client1.Entities.PostAsync(detail);
 
@@ -76,6 +77,9 @@ namespace BIM_mvc_06.Controllers
 
 
             }
+
+            return ("check");
+
 
 
         }

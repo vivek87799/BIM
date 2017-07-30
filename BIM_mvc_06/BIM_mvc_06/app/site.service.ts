@@ -14,7 +14,7 @@ export class SiteService {
     //private _url: string = "http://admin:admin@localhost:5984/bim/_design/user_detail/_view/user_credential"
 
     private _url: string = "./app/test.json"
-    private _urlpost: string = "/Home/postMethod1"
+    private _urlpost: string = "/Login/postMethod1"
     constructor(private _http: Http) { }
     getSites() {
         return this._http.get(this._url) // returns an observable
