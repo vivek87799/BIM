@@ -2,6 +2,8 @@
 import { RouterModule, Routes } from '@angular/router';
 import { SiteListComponent } from './site-list.component';
 import { SiteDetailsComponent } from './site-details.component';
+import { LoginComponent } from './login.component';
+
 
 
 const routes: Routes = [

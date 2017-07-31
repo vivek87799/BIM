@@ -40,47 +40,35 @@ namespace BIM_mvc_06.Controllers
      
 
         [System.Web.Http.HttpPost]
-        public async Task<ActionResult> postMethod1([FromBody]UserDetailModel user)
+        public async Task<ActionResult> getSiteList([FromBody]UserDetailModel user)
         {
 
-            System.Diagnostics.Debug.WriteLine(user.password);
-
-            /*UserDetailModel user = new UserDetailModel
-            {
-                name = "sitechitti",
-                password = "240590"
-            };
-            */
-            var val = await GetData(user.name);
+                       
+           
             return Json("status ok");
         }
 
-
-        async static Task<String> GetData(String name)
+        public async Task<Boolean> getSiteListCD(UserDetailModel user)
         {
-            //for retriving a new data 
-            using (var client1 = new MyCouchClient("http://admin:admin@localhost:5984", "bim"))
+            var uriBuilder = GetCouchUrl();
+
+            Boolean valid = false;
+            using (var client = new MyCouchClient(uriBuilder))
             {
+                var notifications = await client.Views.QueryAsync<SiteModel>(new QueryViewRequest("siteList", "site-list"));
+                SiteModel site = new SiteModel();
 
-                //var name = new UserDetailModel();
-
-                var getEntityResponse = await client1.Entities.GetAsync<String>("84ca163c52885c2823ba547510001721");
-
-                var getEntityResponse1 = await client1.Entities.GetAsync<String>("vinoth");
-                var getDocumentResponse = await client1.Documents.GetAsync("955e47ca47676ed99de5aef5ab00391f");
-
-
-                //var response1 = await client1.Entities.PostAsync(detail);
-
-
-                //Console.Write(response.ContentLength);
-
+                List<SiteModel> un = notifications.Rows.Select(r => r.Value).ToList();
 
             }
 
-            return ("check");
+            return valid;
+        }
 
-
+        private DbConnectionInfo GetCouchUrl()
+        {
+            //Database url , database name
+            return (new DbConnectionInfo("http://admin:admin@localhost:5984", "bim"));
 
         }
     }

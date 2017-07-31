@@ -4,6 +4,10 @@ import { SiteService } from './site.service';
 @Component({
   selector: 'my-app',
   template: `<h1>Hello {{name}}</h1>
+
+<div><site-list></site-list></div>
+<div><site-details></site-details></div>
+
                 <nav>
                 <a routerLink = "/list" routerLinkActive = "active">List</a>
                 <a routerLink = "/details" routerLinkActive = "active">Details</a>

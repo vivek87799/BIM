@@ -3,15 +3,10 @@ import { Router } from '@angular/router';
 import { SiteService } from './site.service'
 
 @Component({
-    selector: 'site-list',
-    template: `<h2>Sites</h2>
+    selector: 'login-comp',
+    template: `<h2>Login</h2>
                 <h2>{{errorMessage}}</h2>
-                <ul class= "items">
-                <li (click)= "onSelect(site)" *ngFor = "let site of sites">
-                <span class = "badge">
-               {{site.name}}</span>{{site.name}}</li>
-                   </ul>
-
+             
 <input type="text" [(ngModel)]="myModel.name"/>
 <input type="password" [(ngModel)]="myModel.password"/>
     {{myModel}}
@@ -25,7 +20,7 @@ import { SiteService } from './site.service'
 {{validid}}`
 })
 
-export class SiteListComponent implements OnInit {
+export class LoginComponent implements OnInit {
     myModel = [];
     sites = [];
     sites1 = [];
@@ -38,22 +33,17 @@ export class SiteListComponent implements OnInit {
             .subscribe(resSiteData => this.sites = resSiteData,
             resSiteError => this.errorMessage = resSiteError);
         //this._siteService.getSites1(this.myModel);
-       
+
     }
 
-    onSelect(site) {
-        this.router.navigate(['/details',site.id]);
-    }
+    onSubmit(user) {
 
-    onSubmit(testt) {
-
-        console.log(testt);
         var Obj = {
-            name: testt.name,
-            password: testt.password,
+            name: user.name,
+            password: user.password,
         };
-        this.myModel = testt;
-        this._siteService.getSites1(Obj)
+        this.myModel = user;
+        this._siteService.getUserValidate(Obj)
             .subscribe(resSiteData => this.validid = resSiteData,
             resSiteError => this.errorMessage = resSiteError);
 

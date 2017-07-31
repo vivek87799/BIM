@@ -15,10 +15,29 @@ export class SiteService {
 
     private _url: string = "./app/test.json"
     private _urlpost: string = "/Login/postMethod1"
+    private _urlsites: string = "/Home/getSiteList"
+
     constructor(private _http: Http) { }
     getSites() {
         return this._http.get(this._url) // returns an observable
             .map((response: Response) => response.json()) // .map converts observable to response of json format
+            .catch(this._errorHandler); // to handle the http error
+    }
+    getSitesList() {
+        return this._http.get(this._urlsites) // returns an observable
+            .map((response: Response) => response.json()) // .map converts observable to response of json format
+            .catch(this._errorHandler); // to handle the http error
+    }
+
+    getUserValidate(user: any) {
+
+        let headers = new Headers({
+            'Content-Type':
+            'application/json; charset=utf-8'
+        });
+        let options = new RequestOptions({ headers: headers });
+        return this._http.post(this._urlpost, JSON.stringify(user), options)
+            .map((response: Response) => response.json())
             .catch(this._errorHandler); // to handle the http error
     }
 
@@ -27,15 +46,6 @@ export class SiteService {
         let id = 'id';
         let name1 = 'name';
 
-        /*let urlSearchParams = new URLSearchParams();
-        urlSearchParams.append(id,'1');
-        urlSearchParams.append(name, 'Chitti');
-
-        let body = urlSearchParams.toString()
-        let bodyString = JSON.stringify({name}); 
-
- */
-
         let headers = new Headers({
             'Content-Type':
             'application/json; charset=utf-8'
@@ -43,7 +53,9 @@ export class SiteService {
         let options = new RequestOptions({ headers: headers });
         console.log("calling the post");
         return this._http.post(this._urlpost, JSON.stringify(dd), options)
-            .subscribe();
+            .map((response: Response) => response.json())
+            .catch(this._errorHandler); // to handle the http error
+
 
        /* console.log(this._http.post(this._urlpost, bodyString, headers) // returns an observable
             .map((response: Response) => response.json()) // .map converts observable to response of json format
