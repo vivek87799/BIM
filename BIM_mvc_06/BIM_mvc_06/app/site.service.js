@@ -19,21 +19,39 @@ var SiteService = (function () {
     function SiteService(_http) {
         this._http = _http;
         this.site = [];
+        this.element = [];
         //private _url: string = "http://admin:admin@localhost:5984/bim/_design/user_detail/_view/user_credential"
         this._url = "./app/test.json";
         this._urlpost = "/Login/postMethod1";
-        this._urlsites = "/Home/getSiteList";
+        this._urlsites = "/Home/getSitesList";
+        this._urlelements = "/Home/getElementsList";
     }
     SiteService.prototype.getSites = function () {
         return this._http.get(this._url) // returns an observable
             .map(function (response) { return response.json(); }) // .map converts observable to response of json format
             .catch(this._errorHandler); // to handle the http error
     };
+    //To get list of sites
     SiteService.prototype.getSitesList = function () {
-        return this._http.get(this._urlsites) // returns an observable
-            .map(function (response) { return response.json(); }) // .map converts observable to response of json format
+        var headers = new http_1.Headers({
+            'Content-Type': 'application/json; charset=utf-8'
+        });
+        var options = new http_1.RequestOptions({ headers: headers });
+        return this._http.post(this._urlsites, JSON.stringify('role'), options)
+            .map(function (response) { return response.json(); })
             .catch(this._errorHandler); // to handle the http error
     };
+    //To get the list of elements
+    SiteService.prototype.getElementsList = function (siteId) {
+        var headers = new http_1.Headers({
+            'Content-Type': 'application/json; charset=utf-8'
+        });
+        var options = new http_1.RequestOptions({ headers: headers });
+        return this._http.post(this._urlelements, JSON.stringify(siteId), options)
+            .map(function (response) { return response.json(); })
+            .catch(this._errorHandler); // to handle the http error
+    };
+    //To validate the user
     SiteService.prototype.getUserValidate = function (user) {
         var headers = new http_1.Headers({
             'Content-Type': 'application/json; charset=utf-8'

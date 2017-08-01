@@ -233,6 +233,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ElementModel.cs" />
     <Compile Include="Models\SiteModel.cs" />
     <Compile Include="Models\UserDetailModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -1082,6 +1083,7 @@
     <TypeScriptCompile Include="app\app-routing.module.ts" />
     <TypeScriptCompile Include="app\app.component.ts" />
     <TypeScriptCompile Include="app\app.module.ts" />
+    <TypeScriptCompile Include="app\elements-list.component.ts" />
     <TypeScriptCompile Include="app\login.component.ts" />
     <TypeScriptCompile Include="app\main.ts" />
     <TypeScriptCompile Include="app\site-details.component.ts" />

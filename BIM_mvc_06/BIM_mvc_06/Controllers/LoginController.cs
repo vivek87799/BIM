@@ -27,8 +27,6 @@ namespace BIM_mvc_06.Controllers
                 
                 var name = new UserDetailModel();
 
-                //var getEntityResponse = await client1.Entities.GetAsync<Name2>("41f3dc82be8bcf733ec04d95b7000214");
-
                 var client2 = new MyCouchClient("http://admin:admin@localhost:5984", "bim/_design/userCredential/_view/user-credential");
                 string uname = string.Format("?keys=[\"bim\"]"); //
                 var client3 = new MyCouchClient("http://admin:admin@localhost:5984", "user_details");
@@ -96,7 +94,7 @@ namespace BIM_mvc_06.Controllers
 
                 foreach (var item in un)
                 {
-                    if (item.name == user.name && item.password == user.password)
+                    if (item.name != null && item.name == user.name && item.password == user.password)
                     {
                         valid = true;
                         return valid;

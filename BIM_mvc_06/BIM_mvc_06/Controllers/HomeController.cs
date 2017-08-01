@@ -38,31 +38,82 @@ namespace BIM_mvc_06.Controllers
         }
 
      
-
+        // routed to get list of sites
         [System.Web.Http.HttpPost]
-        public async Task<ActionResult> getSiteList([FromBody]UserDetailModel user)
+        public async Task<ActionResult> getSitesList([FromBody]string role)
         {
 
-                       
+            List<SiteModel> sites = new List<SiteModel>();
+            sites = await getSiteListCD(role);
            
-            return Json("status ok");
+            return Json(sites);
         }
 
-        public async Task<Boolean> getSiteListCD(UserDetailModel user)
+        public async Task<List<SiteModel>> getSiteListCD(string role)
         {
             var uriBuilder = GetCouchUrl();
 
-            Boolean valid = false;
+            List<SiteModel> sites = new List<SiteModel>();
+            List<SiteModel> siteslist = new List<SiteModel>();
+
             using (var client = new MyCouchClient(uriBuilder))
             {
                 var notifications = await client.Views.QueryAsync<SiteModel>(new QueryViewRequest("siteList", "site-list"));
-                SiteModel site = new SiteModel();
+              
 
-                List<SiteModel> un = notifications.Rows.Select(r => r.Value).ToList();
+                sites = notifications.Rows.Select(r => r.Value).ToList();
+
+
+                foreach (var item in sites)
+                {
+                    if (item.sitename != null)
+                    {
+                        siteslist.Add(item);
+
+                    };
+                }
+            }
+
+            return siteslist;
+        }
+
+        //Routed to get list of elements for a site
+        
+        [System.Web.Http.HttpPost]
+        public async Task<ActionResult> getElementsList([FromBody]string siteid)
+        {
+
+            List<ElementModel> elements = new List<ElementModel>();
+            elements = await getElementsListCD(siteid);
+
+            return Json(elements);
+        }
+
+        public async Task<List<ElementModel>> getElementsListCD(string siteid)
+        {
+            var uriBuilder = GetCouchUrl();
+
+            List<ElementModel> elements = new List<ElementModel>();
+            List<ElementModel> elementslist = new List<ElementModel>();
+            elementslist.Clear();
+            using (var client = new MyCouchClient(uriBuilder))
+            {
+                var notifications = await client.Views.QueryAsync<ElementModel>(new QueryViewRequest("elementList", "element-list"));
+
+                elements = notifications.Rows.Select(r => r.Value).ToList();
+
+                foreach (var item in elements)
+                {
+                    if (item.elementname != null && item.siteid == siteid)
+                    {
+                        elementslist.Add(item);
+
+                    };
+                }
 
             }
 
-            return valid;
+            return elementslist;
         }
 
         private DbConnectionInfo GetCouchUrl()

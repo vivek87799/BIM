@@ -7,14 +7,16 @@ import { SiteService } from './site.service'
     template: `<h2>Login</h2>
                 <h2>{{errorMessage}}</h2>
              
+<p>Name</p>
 <input type="text" [(ngModel)]="myModel.name"/>
+<p>Password</p>
 <input type="password" [(ngModel)]="myModel.password"/>
     {{myModel}}
 
 
     {{myModel}}
 
-<input (click)= "onSubmit(myModel)" type="submit" value = "submit" />
+<input (click)= "onSubmit(myModel)" type="submit" value = "Login" />
 
 
 {{validid}}`

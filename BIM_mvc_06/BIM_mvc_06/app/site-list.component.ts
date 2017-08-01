@@ -9,20 +9,13 @@ import { SiteService } from './site.service'
                 <ul class= "items">
                 <li (click)= "onSelect(site)" *ngFor = "let site of sites">
                 <span class = "badge">
-               {{site.name}}</span>{{site.name}}</li>
+               {{site.siteid}}</span>{{site.sitename}}</li>
                    </ul>
-
-<input type="text" [(ngModel)]="myModel.name"/>
-<input type="password" [(ngModel)]="myModel.password"/>
-    {{myModel}}
-
-
-    {{myModel}}
-
-<input (click)= "onSubmit(myModel)" type="submit" value = "submit" />
-
+               <router-outlet></router-outlet>
 
 {{validid}}`
+
+
 })
 
 export class SiteListComponent implements OnInit {
@@ -34,7 +27,7 @@ export class SiteListComponent implements OnInit {
     constructor(private _siteService: SiteService, private router: Router) { }
     ngOnInit() {
         //this.sites = this._siteService.getSites();
-        this._siteService.getSites()
+        this._siteService.getSitesList()
             .subscribe(resSiteData => this.sites = resSiteData,
             resSiteError => this.errorMessage = resSiteError);
         //this._siteService.getSites1(this.myModel);
@@ -42,7 +35,7 @@ export class SiteListComponent implements OnInit {
     }
 
     onSelect(site) {
-        this.router.navigate(['/details',site.id]);
+        this.router.navigate(['/elements',site.siteid]);
     }
 
     onSubmit(testt) {

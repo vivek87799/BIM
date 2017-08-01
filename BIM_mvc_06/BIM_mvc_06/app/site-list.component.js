@@ -23,12 +23,12 @@ var SiteListComponent = (function () {
     SiteListComponent.prototype.ngOnInit = function () {
         var _this = this;
         //this.sites = this._siteService.getSites();
-        this._siteService.getSites()
+        this._siteService.getSitesList()
             .subscribe(function (resSiteData) { return _this.sites = resSiteData; }, function (resSiteError) { return _this.errorMessage = resSiteError; });
         //this._siteService.getSites1(this.myModel);
     };
     SiteListComponent.prototype.onSelect = function (site) {
-        this.router.navigate(['/details', site.id]);
+        this.router.navigate(['/elements', site.siteid]);
     };
     SiteListComponent.prototype.onSubmit = function (testt) {
         var _this = this;
@@ -46,7 +46,7 @@ var SiteListComponent = (function () {
 SiteListComponent = __decorate([
     core_1.Component({
         selector: 'site-list',
-        template: "<h2>Sites</h2>\n                <h2>{{errorMessage}}</h2>\n                <ul class= \"items\">\n                <li (click)= \"onSelect(site)\" *ngFor = \"let site of sites\">\n                <span class = \"badge\">\n               {{site.name}}</span>{{site.name}}</li>\n                   </ul>\n\n<input type=\"text\" [(ngModel)]=\"myModel.name\"/>\n<input type=\"password\" [(ngModel)]=\"myModel.password\"/>\n    {{myModel}}\n\n\n    {{myModel}}\n\n<input (click)= \"onSubmit(myModel)\" type=\"submit\" value = \"submit\" />\n\n\n{{validid}}"
+        template: "<h2>Sites</h2>\n                <h2>{{errorMessage}}</h2>\n                <ul class= \"items\">\n                <li (click)= \"onSelect(site)\" *ngFor = \"let site of sites\">\n                <span class = \"badge\">\n               {{site.siteid}}</span>{{site.sitename}}</li>\n                   </ul>\n               <router-outlet></router-outlet>\n\n{{validid}}"
     }),
     __metadata("design:paramtypes", [site_service_1.SiteService, router_1.Router])
 ], SiteListComponent);

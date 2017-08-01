@@ -42,7 +42,7 @@ var LoginComponent = (function () {
 LoginComponent = __decorate([
     core_1.Component({
         selector: 'login-comp',
-        template: "<h2>Login</h2>\n                <h2>{{errorMessage}}</h2>\n             \n<input type=\"text\" [(ngModel)]=\"myModel.name\"/>\n<input type=\"password\" [(ngModel)]=\"myModel.password\"/>\n    {{myModel}}\n\n\n    {{myModel}}\n\n<input (click)= \"onSubmit(myModel)\" type=\"submit\" value = \"submit\" />\n\n\n{{validid}}"
+        template: "<h2>Login</h2>\n                <h2>{{errorMessage}}</h2>\n             \n<p>Name</p>\n<input type=\"text\" [(ngModel)]=\"myModel.name\"/>\n<p>Password</p>\n<input type=\"password\" [(ngModel)]=\"myModel.password\"/>\n    {{myModel}}\n\n\n    {{myModel}}\n\n<input (click)= \"onSubmit(myModel)\" type=\"submit\" value = \"Login\" />\n\n\n{{validid}}"
     }),
     __metadata("design:paramtypes", [site_service_1.SiteService, router_1.Router])
 ], LoginComponent);
