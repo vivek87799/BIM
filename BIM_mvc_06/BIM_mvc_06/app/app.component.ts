@@ -3,14 +3,17 @@ import { RouterLinkActive } from '@angular/router';
 import { SiteService } from './site.service';
 @Component({
   selector: 'my-app',
-  template: `<h1>Hello {{name}}</h1>
-                <nav>
-                <a routerLink = "/list" routerLinkActive = "active">List</a>
-                <a routerLink = "/details" routerLinkActive = "active">Details</a>
-                </nav> 
-                <router-outlet></router-outlet>
-              `,
+  template: `
+
+<div><login-comp  [hidden]="loginShown"></login-comp></div>
+<div><site-list  [hidden]="siteListShown"></site-list></div>
+`,
+
   providers: [SiteService]
 
 })
-export class AppComponent  { name = 'Angular'; }
+export class AppComponent  {
+    name = 'BIM';
+    loginShown: boolean = false;
+    siteListShown: boolean = true;
+}

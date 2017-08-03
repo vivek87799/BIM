@@ -7,9 +7,9 @@ namespace BIM_mvc_06.Models
 {
     public class SiteModel
     {
-        public string name { get; set; }
-
-        public string password { get; set; }
+        public string siteid { get; set; }
+        public string sitename { get; set; }
+        public string role { get; set; }
 
     }
 }
