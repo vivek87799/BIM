@@ -4,21 +4,45 @@ import { SiteService } from './site.service'
 
 @Component({
     selector: 'site-list',
-    template: `<h2>Sites</h2>
-                <h2>{{errorMessage}}</h2>
-                <ul class= "items">
-                <li (click)= "onSelect(site)" *ngFor = "let site of sites">
-                <span class = "badge">
-               {{site.siteid}}</span>{{site.sitename}}</li>
-                   </ul>
-               <router-outlet></router-outlet>
+    styleUrls: ['app/site-list.component.css'],
+    template: `
 
-{{validid}}`
+<div class="col-lg-4">
+<div class='main-nav'>
+    <div class='navbar navbar-inverse'>
+        <div class='navbar-header'>
+            <button type='button' class='navbar-toggle' data-toggle='collapse' data-target='.navbar-collapse'>
+                <span class='sr-only'>Toggle navigation</span>
+                <span class='icon-bar'></span>
+                <span class='icon-bar'></span>
+                <span class='icon-bar'></span>
+            </button>
+            <a class='navbar-brand' [routerLink]="['/list']">List of Construction sites</a>
+        </div>
+        <div class='clearfix'></div>
+        <div class='navbar-collapse collapse'>
+            <ul class='nav navbar-nav'>
+                <li [routerLinkActive]="['link-active']" (click)= "onSelect(site)" *ngFor = "let site of sites">
+                <a [routerLink]="['/']">
+                   
+                        <span class='glyphicon glyphicon-home'></span> {{site.siteid}} {{site.sitename}}</a>
+                   
+                </li>
+            </ul>
 
+
+        </div>
+    </div>
+</div>
+</div>
+<div class="col-lg-8">
+<router-outlet></router-outlet>
+</div>
 
 })
 
 export class SiteListComponent implements OnInit {
+    
     myModel = [];
     sites = [];
     sites1 = [];

@@ -11,13 +11,16 @@ var site_service_1 = require("./site.service");
 var AppComponent = (function () {
     function AppComponent() {
         this.name = 'BIM';
+        this.loginShown = false;
+        this.siteListShown = true;
+
     }
     return AppComponent;
 }());
 AppComponent = __decorate([
     core_1.Component({
         selector: 'my-app',
-        template: "\n\n<div><login-comp></login-comp></div>\n<div><site-list></site-list></div>\n",
+        template: "\n\n<div><login-comp  [hidden]=\"loginShown\"></login-comp></div>\n<div><site-list  [hidden]=\"siteListShown\"></site-list></div>\n",
         providers: [site_service_1.SiteService]
     })
 ], AppComponent);

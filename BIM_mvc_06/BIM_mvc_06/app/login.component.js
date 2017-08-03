@@ -16,9 +16,13 @@ var LoginComponent = (function () {
     function LoginComponent(_siteService, router) {
         this._siteService = _siteService;
         this.router = router;
+
+      //@Input() hidden:boolean;
         this.myModel = [];
         this.sites = [];
         this.sites1 = [];
+        this.validid = false;
+      
     }
     LoginComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -42,7 +46,12 @@ var LoginComponent = (function () {
 LoginComponent = __decorate([
     core_1.Component({
         selector: 'login-comp',
-        template: "<h2>Login</h2>\n                <h2>{{errorMessage}}</h2>\n             \n<p>Name</p>\n<input type=\"text\" [(ngModel)]=\"myModel.name\"/>\n<p>Password</p>\n<input type=\"password\" [(ngModel)]=\"myModel.password\"/>\n    {{myModel}}\n\n\n    {{myModel}}\n\n<input (click)= \"onSubmit(myModel)\" type=\"submit\" value = \"Login\" />\n\n\n{{validid}}"
+        styleUrls: ['app/login.component.css'],
+        template: "<link href=\"//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css\" rel=\"stylesheet\">\n\n      
+      <h2>{{errorMessage}}</h2>\n   
+                     \n<div class=\"container\" *ngIf=\"validid == false\">\n    \n    \n    
+                     <div class=\"col-lg-offset-4 col-lg-5\">\n<div class=\"form-login\">\n<h4>Login</h4>\n<input type=\"text\" class=\"form-control input-lg chat-input\" placeholder=\"username\" [(ngModel)]=\"myModel.name\"/>\n\n<input type=\"password\" class=\"form-control input-lg chat-input\" placeholder=\"password\" [(ngModel)]=\"myModel.password\"/>\n\n<div class=\"wrapper\">\n<span class=\"group-btn\">\n<input (click)= \"onSubmit(myModel)\" class=\"btn btn-primary btn-lg\" type=\"submit\" value = \"Login\" />\n</span>\n</div>\n</div>\n</div>\n</div>    \n<div *ngIf=\"validid == true\">\n<div><site-list  [hidden]=\"siteListShown\"></site-list></div>\n</div>"
+
     }),
     __metadata("design:paramtypes", [site_service_1.SiteService, router_1.Router])
 ], LoginComponent);

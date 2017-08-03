@@ -46,7 +46,9 @@ var SiteListComponent = (function () {
 SiteListComponent = __decorate([
     core_1.Component({
         selector: 'site-list',
-        template: "<h2>Sites</h2>\n                <h2>{{errorMessage}}</h2>\n                <ul class= \"items\">\n                <li (click)= \"onSelect(site)\" *ngFor = \"let site of sites\">\n                <span class = \"badge\">\n               {{site.siteid}}</span>{{site.sitename}}</li>\n                   </ul>\n               <router-outlet></router-outlet>\n\n{{validid}}"
+        styleUrls: ['app/site-list.component.css'],
+        template: "\n\n<div class=\"col-lg-4\">\n<div class='main-nav'>\n    <div class='navbar navbar-inverse'>\n        <div class='navbar-header'>\n            <button type='button' class='navbar-toggle' data-toggle='collapse' data-target='.navbar-collapse'>\n                <span class='sr-only'>Toggle navigation</span>\n                <span class='icon-bar'></span>\n                <span class='icon-bar'></span>\n                <span class='icon-bar'></span>\n            </button>\n            <a class='navbar-brand' [routerLink]=\"['/list']\">List of Construction sites</a>\n        </div>\n        <div class='clearfix'></div>\n        <div class='navbar-collapse collapse'>\n            <ul class='nav navbar-nav'>\n                <li [routerLinkActive]=\"['link-active']\" (click)= \"onSelect(site)\" *ngFor = \"let site of sites\">\n                <a [routerLink]=\"['/']\">\n                   \n                        <span class='glyphicon glyphicon-home'></span> {{site.siteid}} {{site.sitename}}</a>\n                   \n                </li>\n            </ul>\n\n        </div>\n    </div>\n</div>\n</div>\n<div class=\"col-lg-8\">\n<router-outlet></router-outlet>\n</div>\n\n"
+
     }),
     __metadata("design:paramtypes", [site_service_1.SiteService, router_1.Router])
 ], SiteListComponent);
