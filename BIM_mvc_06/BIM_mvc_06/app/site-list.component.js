@@ -23,31 +23,31 @@ var SiteListComponent = (function () {
     SiteListComponent.prototype.ngOnInit = function () {
         var _this = this;
         //this.sites = this._siteService.getSites();
-        this._siteService.getSites()
+        this._siteService.getSitesList()
             .subscribe(function (resSiteData) { return _this.sites = resSiteData; }, function (resSiteError) { return _this.errorMessage = resSiteError; });
         //this._siteService.getSites1(this.myModel);
-        /* this._siteService.getSites1()
-             .subscribe(resSiteData => this.sites1 = resSiteData,
-             resSiteError => this.errorMessage = resSiteError);*/
     };
     SiteListComponent.prototype.onSelect = function (site) {
-        this.router.navigate(['/details', site.id]);
+        this.router.navigate(['/elements', site.siteid]);
     };
     SiteListComponent.prototype.onSubmit = function (testt) {
+        var _this = this;
         console.log(testt);
         var Obj = {
             name: testt.name,
             password: testt.password,
         };
         this.myModel = testt;
-        this._siteService.getSites1(Obj);
+        this._siteService.getSites1(Obj)
+            .subscribe(function (resSiteData) { return _this.validid = resSiteData; }, function (resSiteError) { return _this.errorMessage = resSiteError; });
     };
     return SiteListComponent;
 }());
 SiteListComponent = __decorate([
     core_1.Component({
         selector: 'site-list',
-        template: "<h2>list</h2>\n                <h2>{{errorMessage}}</h2>\n                <ul class= \"items\">\n                <li (click)= \"onSelect(site)\" *ngFor = \"let site of sites\">\n                <span class = \"badge\">\n               {{site.name}}</span>{{site.name}}</li>\n                   </ul>\n\n<input type=\"text\" [(ngModel)]=\"myModel.name\"/>\n<input type=\"text\" [(ngModel)]=\"myModel.password\"/>\n    {{myModel}}\n\n\n    {{myModel}}\n\n<input (click)= \"onSubmit(myModel)\" type=\"submit\" value = \"submit\" />\n\n\n{{sites1.id}}"
+        styleUrls: ['app/site-list.component.css'],
+        template: "\n\n<div class=\"col-lg-4\">\n<div class='main-nav'>\n    <div class='navbar navbar-inverse'>\n        <div class='navbar-header'>\n            <button type='button' class='navbar-toggle' data-toggle='collapse' data-target='.navbar-collapse'>\n                <span class='sr-only'>Toggle navigation</span>\n                <span class='icon-bar'></span>\n                <span class='icon-bar'></span>\n                <span class='icon-bar'></span>\n            </button>\n            <a class='navbar-brand' [routerLink]=\"['/list']\">List of Construction sites</a>\n        </div>\n        <div class='clearfix'></div>\n        <div class='navbar-collapse collapse'>\n            <ul class='nav navbar-nav'>\n                <li [routerLinkActive]=\"['link-active']\" (click)= \"onSelect(site)\" *ngFor = \"let site of sites\">\n                <a [routerLink]=\"['/']\">\n                   \n                        <span class='glyphicon glyphicon-home'></span> {{site.siteid}} {{site.sitename}}</a>\n                   \n                </li>\n            </ul>\n\n        </div>\n    </div>\n</div>\n</div>\n<div class=\"col-lg-8\">\n<router-outlet></router-outlet>\n</div>\n\n"
     }),
     __metadata("design:paramtypes", [site_service_1.SiteService, router_1.Router])
 ], SiteListComponent);

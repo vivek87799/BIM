@@ -4,46 +4,64 @@ import { SiteService } from './site.service'
 
 @Component({
     selector: 'site-list',
-    template: `<h2>list</h2>
-                <h2>{{errorMessage}}</h2>
-                <ul class= "items">
-                <li (click)= "onSelect(site)" *ngFor = "let site of sites">
-                <span class = "badge">
-               {{site.name}}</span>{{site.name}}</li>
-                   </ul>
+    styleUrls: ['app/site-list.component.css'],
+    template: `
 
-<input type="text" [(ngModel)]="myModel.name"/>
-<input type="text" [(ngModel)]="myModel.password"/>
-    {{myModel}}
+<div class="col-lg-4">
+<div class='main-nav'>
+    <div class='navbar navbar-inverse'>
+        <div class='navbar-header'>
+            <button type='button' class='navbar-toggle' data-toggle='collapse' data-target='.navbar-collapse'>
+                <span class='sr-only'>Toggle navigation</span>
+                <span class='icon-bar'></span>
+                <span class='icon-bar'></span>
+                <span class='icon-bar'></span>
+            </button>
+            <a class='navbar-brand' [routerLink]="['/list']">List of Construction sites</a>
+        </div>
+        <div class='clearfix'></div>
+        <div class='navbar-collapse collapse'>
+            <ul class='nav navbar-nav'>
+                <li [routerLinkActive]="['link-active']" (click)= "onSelect(site)" *ngFor = "let site of sites">
+                <a [routerLink]="['/']">
+                   
+                        <span class='glyphicon glyphicon-home'></span> {{site.siteid}} {{site.sitename}}</a>
+                   
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</div>
+</div>
+<div class="col-lg-8">
+<router-outlet></router-outlet>
+</div>
+
+`
 
 
-    {{myModel}}
-
-<input (click)= "onSubmit(myModel)" type="submit" value = "submit" />
-
-
-{{sites1.id}}`
 })
 
 export class SiteListComponent implements OnInit {
+    
     myModel = [];
     sites = [];
     sites1 = [];
+    validid: boolean;
     errorMessage: string;
     constructor(private _siteService: SiteService, private router: Router) { }
     ngOnInit() {
         //this.sites = this._siteService.getSites();
-        this._siteService.getSites()
+        this._siteService.getSitesList()
             .subscribe(resSiteData => this.sites = resSiteData,
             resSiteError => this.errorMessage = resSiteError);
         //this._siteService.getSites1(this.myModel);
-       /* this._siteService.getSites1()
-            .subscribe(resSiteData => this.sites1 = resSiteData,
-            resSiteError => this.errorMessage = resSiteError);*/
+       
     }
 
     onSelect(site) {
-        this.router.navigate(['/details',site.id]);
+        this.router.navigate(['/elements',site.siteid]);
     }
 
     onSubmit(testt) {
@@ -54,7 +72,9 @@ export class SiteListComponent implements OnInit {
             password: testt.password,
         };
         this.myModel = testt;
-        this._siteService.getSites1(Obj);
+        this._siteService.getSites1(Obj)
+            .subscribe(resSiteData => this.validid = resSiteData,
+            resSiteError => this.errorMessage = resSiteError);
 
     }
 

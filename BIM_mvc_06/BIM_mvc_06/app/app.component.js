@@ -10,14 +10,16 @@ var core_1 = require("@angular/core");
 var site_service_1 = require("./site.service");
 var AppComponent = (function () {
     function AppComponent() {
-        this.name = 'Angular';
+        this.name = 'BIM';
+        this.loginShown = false;
+        this.siteListShown = true;
     }
     return AppComponent;
 }());
 AppComponent = __decorate([
     core_1.Component({
         selector: 'my-app',
-        template: "<h1>Hello {{name}}</h1>\n                <nav>\n                <a routerLink = \"/list\" routerLinkActive = \"active\">List</a>\n                <a routerLink = \"/details\" routerLinkActive = \"active\">Details</a>\n                </nav> \n                <router-outlet></router-outlet>\n              ",
+        template: "\n\n<div><login-comp  [hidden]=\"loginShown\"></login-comp></div>\n<div><site-list  [hidden]=\"siteListShown\"></site-list></div>\n",
         providers: [site_service_1.SiteService]
     })
 ], AppComponent);
