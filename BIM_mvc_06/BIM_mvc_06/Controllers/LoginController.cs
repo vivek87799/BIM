@@ -8,11 +8,14 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
+using BIM_mvc_06.Connenction;
 
 namespace BIM_mvc_06.Controllers
 {
     public class LoginController : Controller
     {
+
+        ConnectionStrings db;
         // GET: Login
         public ActionResult Index()
         {
@@ -20,8 +23,8 @@ namespace BIM_mvc_06.Controllers
         }
         public async Task<List<UserDetailModel>> Get()
         {
-            var uriBuilder = GetCouchUrl();
-                             
+            db = new ConnectionStrings();
+            var uriBuilder = db.GetCouchUrl();
             using (var client1 = new MyCouchClient("http://admin:admin@localhost:5984", "testdatabase")) 
             {
                 
@@ -79,8 +82,9 @@ namespace BIM_mvc_06.Controllers
        
         public async Task<Boolean> validateUser(UserDetailModel user)
         {
-            var uriBuilder = GetCouchUrl();
-                     
+            db = new ConnectionStrings();
+            var uriBuilder = db.GetCouchUrl();
+
             Boolean valid = false;
             using (var client = new MyCouchClient(uriBuilder))
             {
@@ -108,12 +112,7 @@ namespace BIM_mvc_06.Controllers
             return valid;
         }
 
-        private DbConnectionInfo GetCouchUrl()
-        {
-            //Database url , database name
-            return (new DbConnectionInfo("http://admin:admin@localhost:5984", "bim"));
-
-        }
+   
         [System.Web.Http.HttpPost]
         public async Task<ActionResult> postMethod1([FromBody]UserDetailModel user)
         {

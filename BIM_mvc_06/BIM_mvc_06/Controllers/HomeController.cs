@@ -1,4 +1,5 @@
 ﻿using BIM_mvc_06.Models;
+using BIM_mvc_06.Connenction;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,8 @@ namespace BIM_mvc_06.Controllers
 {
     public class HomeController : Controller
     {
+
+        ConnectionStrings db;
         public ActionResult Index()
         {
             return View();
@@ -51,7 +54,9 @@ namespace BIM_mvc_06.Controllers
 
         public async Task<List<SiteModel>> getSiteListCD(string role)
         {
-            var uriBuilder = GetCouchUrl();
+
+            db = new ConnectionStrings();
+            var uriBuilder = db.GetCouchUrl();
 
             List<SiteModel> sites = new List<SiteModel>();
             List<SiteModel> siteslist = new List<SiteModel>();
@@ -91,8 +96,8 @@ namespace BIM_mvc_06.Controllers
 
         public async Task<List<ElementModel>> getElementsListCD(string siteid)
         {
-            var uriBuilder = GetCouchUrl();
-
+            db = new ConnectionStrings();
+            var uriBuilder = db.GetCouchUrl();
             List<ElementModel> elements = new List<ElementModel>();
             List<ElementModel> elementslist = new List<ElementModel>();
             elementslist.Clear();
@@ -116,12 +121,7 @@ namespace BIM_mvc_06.Controllers
             return elementslist;
         }
 
-        private DbConnectionInfo GetCouchUrl()
-        {
-            //Database url , database name
-            return (new DbConnectionInfo("http://admin:admin@localhost:5984", "bim"));
-
-        }
+  
     }
 
 
