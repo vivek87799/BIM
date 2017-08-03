@@ -30,6 +30,7 @@ import { SiteService } from './site.service'
                 </li>
             </ul>
 
+
         </div>
     </div>
 </div>
@@ -37,9 +38,6 @@ import { SiteService } from './site.service'
 <div class="col-lg-8">
 <router-outlet></router-outlet>
 </div>
-
-`
-
 
 })
 

@@ -1,4 +1,5 @@
 ﻿using BIM_mvc_06.Models;
+using BIM_mvc_06.Connenction;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,8 @@ namespace BIM_mvc_06.Controllers
 {
     public class HomeController : Controller
     {
+
+        ConnectionStrings db;
         public ActionResult Index()
         {
             return View();
@@ -38,51 +41,87 @@ namespace BIM_mvc_06.Controllers
         }
 
      
-
+        // routed to get list of sites
         [System.Web.Http.HttpPost]
-        public async Task<ActionResult> postMethod1([FromBody]UserDetailModel user)
+        public async Task<ActionResult> getSitesList([FromBody]string role)
         {
 
-            System.Diagnostics.Debug.WriteLine(user.password);
-
-            /*UserDetailModel user = new UserDetailModel
-            {
-                name = "sitechitti",
-                password = "240590"
-            };
-            */
-            var val = await GetData(user.name);
-            return Json("status ok");
+            List<SiteModel> sites = new List<SiteModel>();
+            sites = await getSiteListCD(role);
+           
+            return Json(sites);
         }
 
-
-        async static Task<String> GetData(String name)
+        public async Task<List<SiteModel>> getSiteListCD(string role)
         {
-            //for retriving a new data 
-            using (var client1 = new MyCouchClient("http://admin:admin@localhost:5984", "bim"))
+
+            db = new ConnectionStrings();
+            var uriBuilder = db.GetCouchUrl();
+
+            List<SiteModel> sites = new List<SiteModel>();
+            List<SiteModel> siteslist = new List<SiteModel>();
+
+            using (var client = new MyCouchClient(uriBuilder))
             {
+                var notifications = await client.Views.QueryAsync<SiteModel>(new QueryViewRequest("siteList", "site-list"));
+              
 
-                //var name = new UserDetailModel();
-
-                var getEntityResponse = await client1.Entities.GetAsync<String>("84ca163c52885c2823ba547510001721");
-
-                var getEntityResponse1 = await client1.Entities.GetAsync<String>("vinoth");
-                var getDocumentResponse = await client1.Documents.GetAsync("955e47ca47676ed99de5aef5ab00391f");
+                sites = notifications.Rows.Select(r => r.Value).ToList();
 
 
-                //var response1 = await client1.Entities.PostAsync(detail);
+                foreach (var item in sites)
+                {
+                    if (item.sitename != null)
+                    {
+                        siteslist.Add(item);
 
+                    };
+                }
+            }
 
-                //Console.Write(response.ContentLength);
+            return siteslist;
+        }
 
+        //Routed to get list of elements for a site
+        
+        [System.Web.Http.HttpPost]
+        public async Task<ActionResult> getElementsList([FromBody]string siteid)
+        {
+
+            List<ElementModel> elements = new List<ElementModel>();
+            elements = await getElementsListCD(siteid);
+
+            return Json(elements);
+        }
+
+        public async Task<List<ElementModel>> getElementsListCD(string siteid)
+        {
+            db = new ConnectionStrings();
+            var uriBuilder = db.GetCouchUrl();
+            List<ElementModel> elements = new List<ElementModel>();
+            List<ElementModel> elementslist = new List<ElementModel>();
+            elementslist.Clear();
+            using (var client = new MyCouchClient(uriBuilder))
+            {
+                var notifications = await client.Views.QueryAsync<ElementModel>(new QueryViewRequest("elementList", "element-list"));
+
+                elements = notifications.Rows.Select(r => r.Value).ToList();
+
+                foreach (var item in elements)
+                {
+                    if (item.elementname != null && item.siteid == siteid)
+                    {
+                        elementslist.Add(item);
+
+                    };
+                }
 
             }
 
-            return ("check");
-
-
-
+            return elementslist;
         }
+
+  
     }
 
 

@@ -13,6 +13,7 @@ var AppComponent = (function () {
         this.name = 'BIM';
         this.loginShown = false;
         this.siteListShown = true;
+
     }
     return AppComponent;
 }());

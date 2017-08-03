@@ -4,7 +4,6 @@ import { SiteService } from './site.service';
 @Component({
   selector: 'my-app',
   template: `
-
 <div><login-comp  [hidden]="loginShown"></login-comp></div>
 <div><site-list  [hidden]="siteListShown"></site-list></div>
 `,

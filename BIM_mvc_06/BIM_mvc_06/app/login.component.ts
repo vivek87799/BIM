@@ -41,6 +41,7 @@ export class LoginComponent implements OnInit {
     //validid: boolean;
     errorMessage: string;
     validid = false;
+
     constructor(private _siteService: SiteService, private router: Router) { }
     ngOnInit() {
         //this.sites = this._siteService.getSites();
@@ -61,7 +62,6 @@ export class LoginComponent implements OnInit {
         this._siteService.getUserValidate(Obj)
             .subscribe(resSiteData => this.validid = resSiteData,
             resSiteError => this.errorMessage = resSiteError);
-       
 
     }
 
